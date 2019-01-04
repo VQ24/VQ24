@@ -2,6 +2,14 @@ import React, { Component } from 'react';
 import { List } from './list/list';
 
 export class Table extends Component {
+  constructor(props) {
+    super(props);
+    this.listItemAction = this.listItemAction.bind(this);
+  }
+
+  listItemAction (...args) {
+    this.props.listItemAction(...args);
+  }
 
   generateDisplayData(data) {
     const result = [];
@@ -25,6 +33,8 @@ export class Table extends Component {
               key={item.listName}
               listName={item.listName}
               listItems={item.listItems}
+              listItemAction={this.listItemAction}
+              blocked={this.props.blocked}
             />
           );
         })}

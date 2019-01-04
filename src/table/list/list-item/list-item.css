@@ -1,3 +1,60 @@
+:root {
+  --red-color-main: #c00;
+  --red-color-light: #e22;
+  --red-color-dark: #600;
+  --green-color-main: #090;
+  --green-color-light: #2a2;
+  --green-color-dark: #060;
+  --transition-time: .3s;
+}
+
 .unstocked-item {
-  color: red;
+  color: var(--red-color-light);
+}
+
+.action-link {
+  height: 1.5rem;
+  width: 1.5rem;
+  opacity: 0;
+  border-radius: 4px;
+  font-weight: bold;
+  transition: opacity var(--transition-time), color var(--transition-time), background-color var(--transition-time), text-shadow var(--transition-time);
+  outline: none;
+}
+
+tr:hover .action-link {
+  opacity: 1;
+  cursor: pointer;
+}
+
+.button-cell {
+  position: relative;
+}
+
+.red-button {
+  border: 1px solid var(--red-color-main);
+  background-color: white;
+  color: var(--red-color-main);
+  text-shadow: 0px 0px white;
+}
+
+.green-button {
+  border: 1px solid var(--green-color-main);
+  background-color: white;
+  color: var(--green-color-main);
+  text-shadow: 0px 0px white;
+}
+
+.red-button:hover {
+  color: white;
+  background-color: var(--red-color-main);
+  text-shadow: -1px -1px var(--red-color-dark);
+  text-shadow: 1px 1px var(--red-color-light);
+}
+
+.green-button:hover {
+  color: white;
+  background-color: var(--green-color-main);
+  text-shadow: -1px -1px var(--green-color-dark);
+  text-shadow: 1px 1px var(--green-color-light);
 }

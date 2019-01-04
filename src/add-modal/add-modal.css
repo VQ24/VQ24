@@ -1,0 +1,36 @@
+.modal-window {
+  background: white;
+  position: absolute;
+  border-radius: 3px;
+  box-shadow: 0 3px 5px 3px rgba(0,0,0,0.2), 0 3px 6px 0 rgba(0,0,0,0.19);
+  transition: all .3s ease-out;
+  left: 5rem;
+  padding: 0 1rem 1rem 1rem;
+}
+
+.outer-button {
+  background-color: rgba(255,0,0,0.1);
+  border-radius: .6rem;
+  width: 1.2rem;
+  height: 1.2rem;
+  text-align: center;
+  position: absolute;
+  right: -1.2rem;
+  top: -1.2rem;
+  font-weight: bold;
+  transition: all .3s;
+}
+
+.outer-button:hover {
+  background-color: rgba(255,0,0,1);
+  color: white;
+  cursor: pointer;
+}
+
+.inline-block {
+  display: inline-block;
+}
+
+.small-margin {
+  margin: .1rem;
+}
