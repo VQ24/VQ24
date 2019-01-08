@@ -9,7 +9,7 @@
 }
 
 .outer-button {
-  background-color: rgba(255,0,0,0.1);
+  background-color: white;
   border-radius: .6rem;
   width: 1.2rem;
   height: 1.2rem;
@@ -22,7 +22,7 @@
 }
 
 .outer-button:hover {
-  background-color: rgba(255,0,0,1);
+  background-color: var(--red-color-light);
   color: white;
   cursor: pointer;
 }
@@ -33,4 +33,30 @@
 
 .small-margin {
   margin: .1rem;
+}
+
+.error-line {
+  color: red;
+  font-style: italic;
+}
+
+.dialog-button {
+  border: 1px solid var(--blue-color-main);
+  border-radius: 3px;
+  padding: .4rem;
+  cursor: pointer;
+  background-color: white;
+  color: var(--blue-color-main);
+  transition: all var(--transition-time);
+}
+
+.dialog-button[disabled] {
+  border: 1px solid var(--grey-color-main);
+  cursor: default;
+  color: var(--grey-color-main);
+}
+
+.dialog-button:not([disabled]):hover {
+  color: white;
+  background-color: var(--blue-color-main);
 }

@@ -1,9 +1,22 @@
 import React, { Component } from 'react';
+import { validateField as getValidation } from '../common/utils';
+import {VALIDATION_ERRORS as ERR} from '../common/constants';
 import './add-modal.css';
 
-const initialState = {
-  itemName: '',
-  itemPrice: 0
+const getinitialState = () => {
+  return {
+    itemName: '',
+    itemPrice: 0,
+    validation: {
+      formErrors: {
+        itemName: ERR.name_required,
+        itemPrice: ERR.price_required,
+      },
+      nameValid: false,
+      priceValid: false,
+      formValid: false,
+    }
+  }
 }
 
 export class AddModal extends Component {
@@ -11,34 +24,43 @@ export class AddModal extends Component {
   constructor(props) {
     super(props);
 
-    this.state = initialState;
+    this.state = getinitialState();
 
-    this.handleInputPrice = this.handleInputPrice.bind(this);
-    this.handleInputName = this.handleInputName.bind(this);
+    this.handleInput = this.handleInput.bind(this);
     this.closeModal = this.closeModal.bind(this);
     this.addItem = this.addItem.bind(this);
   }
 
   closeModal() {
-    this.setState(initialState);
+    this.setState(getinitialState());
     this.props.closeModal();
   }
 
   addItem() {
     this.props.addItem(this.props.index, this.state.itemName, this.state.itemPrice);
-    this.setState(initialState);
+    this.setState(getinitialState());
   }
 
-  handleInputName(event) {
+  validateField(name, value, initialValidationState) {
     this.setState({
-      itemName: event.target.value
+      validation: getValidation(name, value, initialValidationState)
     })
   }
 
-  handleInputPrice(event) {
+  handleInput(event) {
+    const name = event.target.name;
+    const value = event.target.value;
     this.setState({
-      itemPrice: event.target.value
+      [name]: value},
+      () => {this.validateField(name, value, this.state.validation)
     })
+  }
+
+  renderValidationErrors() {
+    return ([
+      this.state.validation.nameValid ? null : <p>{this.state.validation.formErrors.itemName}</p>,
+      this.state.validation.priceValid ? null : <p>{this.state.validation.formErrors.itemPrice}</p>
+    ])
   }
 
   render() {
@@ -46,7 +68,7 @@ export class AddModal extends Component {
       <div
         className="modal-window"
         style={{
-          top: this.props.isOpened ? this.props.yCoord - 40 : -180,
+          top: this.props.isOpened ? this.props.yCoord - 40 : -500,
         }}
       >
         <div
@@ -56,36 +78,40 @@ export class AddModal extends Component {
         <h3>Enter new item data</h3>
         <div>
           <div className="inline-block small-margin">
-            <label htmlFor="item-name">Name</label>
+            <label htmlFor="itemName">Name</label>
             <div>
               <input
-                name="item-name"
+                name="itemName"
                 type="text"
                 value={this.state.itemName}
-                onChange={this.handleInputName}
+                onChange={this.handleInput}
               ></input>
             </div>
           </div>
           <div className="inline-block small-margin">
-            <label htmlFor="item-name">Price</label>
+            <label htmlFor="itemPrice">Price</label>
             <div>
               <input
-                name="item-price"
+                name="itemPrice"
                 type="number"
                 value={this.state.itemPrice}
-                onChange={this.handleInputPrice}
+                onChange={this.handleInput}
               ></input>
             </div>
           </div>
         </div>
+        <div className="small-margin error-line">
+          {this.renderValidationErrors()}
+        </div>
         <div className="small-margin">
           <div>
             <button
-              className="small-margin"
+              className="small-margin dialog-button"
+              disabled={!this.state.validation.formValid}
               onClick={this.addItem}
               >Ok</button>
             <button
-              className="small-margin"
+              className="small-margin dialog-button"
               onClick={this.closeModal}
             >Cancel</button>
           </div>

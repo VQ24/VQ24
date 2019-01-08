@@ -1,13 +1,3 @@
-:root {
-  --red-color-main: #c00;
-  --red-color-light: #e22;
-  --red-color-dark: #600;
-  --green-color-main: #090;
-  --green-color-light: #2a2;
-  --green-color-dark: #060;
-  --transition-time: .3s;
-}
-
 .unstocked-item {
   color: var(--red-color-light);
 }

@@ -98,7 +98,7 @@ class App extends Component {
 
   render() {
     return (
-      <div>
+      <div className="margin-medium">
         <Search
           searchFilter={this.state.searchFilter}
           showOnlyStocked={this.state.showOnlyStocked}

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import './search.css';
 
 export class Search extends Component {
 
@@ -14,7 +15,7 @@ export class Search extends Component {
     return (
       <div>
         <div>
-          <input
+          <input className='column-20'
             type='text'
             placeholder='Search...'
             value={this.props.searchFilter}

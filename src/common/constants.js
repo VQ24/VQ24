@@ -12,3 +12,10 @@ export const STORE = [
   {id: '110', category: 'Food', price: 14.99, stocked: false, name: 'Cucumber'},
   {id: '111', category: 'Food', price: 15.99, stocked: true, name: 'Tomato'},
 ];
+
+export const VALIDATION_ERRORS = {
+  name_required: 'Name is required',
+  price_required: 'Price is required',
+  price_non_dight: 'Price should be a number',
+  price_negative: 'Price should be greater than 0',
+}
