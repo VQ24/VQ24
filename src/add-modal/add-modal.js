@@ -58,8 +58,8 @@ export class AddModal extends Component {
 
   renderValidationErrors() {
     return ([
-      this.state.validation.nameValid ? null : <p>{this.state.validation.formErrors.itemName}</p>,
-      this.state.validation.priceValid ? null : <p>{this.state.validation.formErrors.itemPrice}</p>
+      this.state.validation.nameValid ? null : <p key='name-error'>{this.state.validation.formErrors.itemName}</p>,
+      this.state.validation.priceValid ? null : <p key='price-error'>{this.state.validation.formErrors.itemPrice}</p>
     ])
   }
 
