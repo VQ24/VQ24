@@ -21,6 +21,8 @@ export class List extends Component {
           stocked={listItem.stocked}
           name={listItem.name}
           price={listItem.price}
+          loading={listItem.loading}
+          loadingTime={listItem.loadingTime}
           listItemAction={this.listItemAction}
           blocked={this.props.blocked}
         />

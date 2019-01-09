@@ -45,6 +45,7 @@ export function validateField(name, value, initialState) {
       }
         validationPriceValid = true;
         validationErrors.itemPrice = '';
+        break;
     }
     default: break;
   }

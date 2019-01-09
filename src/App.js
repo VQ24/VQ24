@@ -2,15 +2,15 @@ import React, { Component } from 'react';
 import { Table } from './table/table';
 import { AddModal } from './add-modal/add-modal';
 import { Search } from './search/search';
-import { STORE } from './common/constants';
 import { Counter } from './common/utils';
+import { getData as fetchData } from './request-emulation/request-emulation';
 import { filterBySearchStringAndIncludeCheckbox as filterFunc } from './common/utils';
 import './App.css';
 
 class App extends Component {
   constructor(props) {
     super(props);
-    this.initialStore = STORE;
+    this.initialStore = [];
     this.state = {
       store: this.initialStore,
       showOnlyStocked: false,
@@ -26,6 +26,38 @@ class App extends Component {
     this.listItemAction = this.listItemAction.bind(this);
     this.addItem = this.addItem.bind(this);
     this.closeModal = this.closeModal.bind(this);
+  }
+
+  componentDidMount() {
+    this.loadData();
+  }
+
+  loadData() {
+    fetchData().forEach(item => item
+      .then(loadingData => {
+        this.initialStore.push(loadingData);
+        this.setState({
+          store: this.initialStore.filter(filterFunc(this.state.searchFilter, this.state.showOnlyStocked)),
+        });
+        return loadingData;
+      })
+      .then(loadedData => {
+        setTimeout(() => {
+          this.initialStore.filter(data => data.id === loadedData.id)[0] = Object.assign(loadedData, {loading: false});
+          this.setState({
+            store: this.initialStore.filter(filterFunc(this.state.searchFilter, this.state.showOnlyStocked)),
+          });
+        }, loadedData.loadingTime);
+      })
+    )
+  }
+
+  reloadData = () => {
+    this.initialStore = [];
+    this.setState({
+      store: this.initialStore.filter(filterFunc(this.state.searchFilter, this.state.showOnlyStocked)),
+    });
+    this.loadData()
   }
 
   onFilterChange = (filterString) => {
@@ -97,6 +129,17 @@ class App extends Component {
   }
 
   render() {
+
+    const renderReloadButton = () => {
+      const allLoaded = this.state.store && this.state.store.length && this.state.store.filter(item => item.loading).length === 0;
+      return allLoaded ?
+        <button
+          className="dialog-button"
+          onClick={this.reloadData}
+        >Reload</button>
+      : null;
+    }
+
     return (
       <div className="margin-medium">
         <Search
@@ -117,6 +160,9 @@ class App extends Component {
           closeModal = {this.closeModal}
           addItem={this.addItem}
         />
+        <div className="margin-medium">
+          {renderReloadButton()}
+        </div>
       </div>
     );
   }
