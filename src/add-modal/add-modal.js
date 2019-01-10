@@ -15,7 +15,8 @@ const getinitialState = () => {
       nameValid: false,
       priceValid: false,
       formValid: false,
-    }
+    },
+    formDirty: false,
   }
 }
 
@@ -56,10 +57,18 @@ export class AddModal extends Component {
     })
   }
 
+  handleFormDirty = () => {
+    if (!this.state.formDirty) {
+      this.setState({
+        formDirty: true
+      })
+    }
+  }
+
   renderValidationErrors() {
     return ([
-      this.state.validation.nameValid ? null : <p key='name-error'>{this.state.validation.formErrors.itemName}</p>,
-      this.state.validation.priceValid ? null : <p key='price-error'>{this.state.validation.formErrors.itemPrice}</p>
+      this.state.validation.nameValid || !this.state.formDirty ? null : <p key='name-error'>{this.state.validation.formErrors.itemName}</p>,
+      this.state.validation.priceValid || !this.state.formDirty ? null : <p key='price-error'>{this.state.validation.formErrors.itemPrice}</p>
     ])
   }
 
@@ -85,6 +94,7 @@ export class AddModal extends Component {
                 type="text"
                 value={this.state.itemName}
                 onChange={this.handleInput}
+                onInput={this.handleFormDirty}
               ></input>
             </div>
           </div>
@@ -93,9 +103,10 @@ export class AddModal extends Component {
             <div>
               <input
                 name="itemPrice"
-                type="number"
+                type="text"
                 value={this.state.itemPrice}
                 onChange={this.handleInput}
+                onInput={this.handleFormDirty}
               ></input>
             </div>
           </div>

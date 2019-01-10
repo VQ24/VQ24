@@ -33,7 +33,7 @@ export function validateField(name, value, initialState) {
         validationErrors.itemPrice = ERR.price_required
         break;
       }
-      if (!value.match(/^[0-9]?.*$/)) {
+      if (!value.match(/^\-?[0-9]*\.?[0-9]*$/)) {
         validationPriceValid = false;
         validationErrors.itemPrice = ERR.price_non_dight
         break;
