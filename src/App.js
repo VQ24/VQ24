@@ -142,6 +142,7 @@ class App extends Component {
 
     return (
       <div className="margin-medium">
+        <h2>Test React application</h2>
         <Search
           searchFilter={this.state.searchFilter}
           showOnlyStocked={this.state.showOnlyStocked}
